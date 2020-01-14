@@ -3,9 +3,6 @@
     <section class="hero-banner">
       <div class="hero-banner__content text-center">
         <h1>Perpustakaan<br />Politeknik Negeri Padang</h1>
-        <router-link :to="{ name: 'buku' }" class="btn btn-primary">
-          Borrow some book
-        </router-link>
       </div>
     </section>
     <section>
@@ -46,6 +43,8 @@ import { mapGetters } from 'vuex'
 export default {
   layout: 'default',
 
+  middleware: 'auth',
+
   metaInfo() {
     return { title: this.$t('home') }
   },
@@ -74,7 +73,7 @@ export default {
 .hero-banner {
   position: relative;
   height: 400px;
-  background: url("images/hero-banner.png") left center no-repeat;
+  background: url("../images/hero-banner.png") left center no-repeat;
   background-size: cover;
   z-index: 1
 }

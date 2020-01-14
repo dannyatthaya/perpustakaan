@@ -22,6 +22,12 @@ Route::group(['middleware' => 'auth:api'], function () {
 
     Route::patch('settings/profile', 'Settings\ProfileController@update');
     Route::patch('settings/password', 'Settings\PasswordController@update');
+
+    Route::get('/buku', 'BukuController@all');
+    Route::get('/buku/{id}', 'BukuController@show');
+    Route::post('/buku', 'BukuController@store');
+    Route::put('/buku/{id}', 'BukuController@update');
+    Route::delete('/buku/{id}', 'BukuController@delete');
 });
 
 Route::group(['middleware' => 'guest:api'], function () {

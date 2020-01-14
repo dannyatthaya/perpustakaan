@@ -1,7 +1,7 @@
 <template>
   <nav class="navbar navbar-expand-lg navbar-light bg-white">
     <div class="container">
-      <router-link :to="{ name: user ? 'home' : 'welcome' }" class="navbar-brand">
+      <router-link :to="{ name: user ? 'dashboard' : 'index' }" class="navbar-brand">
         {{ appName }}
       </router-link>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggler" aria-controls="navbarToggler" aria-expanded="false">
@@ -23,22 +23,22 @@
               </router-link>
             </li>
             <li class="nav-item">
-              <router-link :to="{ name: 'anggota' }" class="nav-link">
+              <router-link :to="{ name: 'admin.anggota' }" class="nav-link">
                 Anggota
               </router-link>
             </li>
             <li class="nav-item">
-              <router-link :to="{ name: 'buku' }" class="nav-link">
+              <router-link :to="{ name: 'bukuRead' }" class="nav-link">
                 Buku
               </router-link>
             </li>
             <li class="nav-item">
-              <router-link :to="{ name: 'peminjaman' }" class="nav-link">
+              <router-link :to="{ name: 'admin.peminjaman' }" class="nav-link">
                 Peminjaman
               </router-link>
             </li>
             <li class="nav-item">
-              <router-link :to="{ name: 'pengembalian' }" class="nav-link">
+              <router-link :to="{ name: 'admin.pengembalian' }" class="nav-link">
                 Pengembalian
               </router-link>
             </li>
@@ -55,6 +55,11 @@
           </template>
           <!-- Guest -->
           <template v-else>
+            <li class="nav-item">
+              <router-link :to="{ name: 'bukuRead' }" class="nav-link" active-class="active">
+                Buku
+              </router-link>
+            </li>
             <li class="nav-item">
               <router-link :to="{ name: 'login' }" class="nav-link" active-class="active">
                 {{ $t('login') }}

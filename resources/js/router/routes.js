@@ -3,9 +3,13 @@ function page (path) {
 }
 
 export default [
-  { path: '/', name: 'welcome', component: page('index.vue') },
+  { path: '/', name: 'index', component: page('index.vue') },
 
   { path: '/login', name: 'login', component: page('auth/login.vue') },
+
+  { path: '/admin/buku', name: 'bukuRead', component: page('admin/buku/read.vue') },
+  { path: '/admin/buku/create', name: 'bukuCreate', component: page('admin/buku/create.vue') },
+  { path: '/admin/buku/detail/:id', name: 'bukuUpdate', component: page('admin/update.vue') },
 
   { path: '/register', name: 'register', component: page('auth/register.vue') },
   { path: '/password/reset', name: 'password.request', component: page('auth/password/email.vue') },
@@ -21,11 +25,11 @@ export default [
       { path: 'password', name: 'settings.password', component: page('settings/password.vue') }
     ] },
 
-  { path: '*', component: page('errors/404.vue') },
+  { path: '/admin/', name: 'dashboard', component: page('admin/index.vue') },
+  { path: '/admin/anggota', name: 'admin.anggota', component: page('admin/anggota.vue') },
+  { path: '/admin/buku', name: 'admin.buku', component: page('admin/buku.vue') },
+  { path: '/admin/peminjaman', name: 'admin.peminjaman', component: page('admin/peminjaman.vue') },
+  { path: '/admin/pengembalian', name: 'admin.pengembalian', component: page('admin/pengembalian.vue') },
 
-  { path: '/admin/', name: 'dashboard', component: page('admin/dashboard.vue') },
-  { path: '/admin/anggota', name: 'anggota', component: page('admin/anggota.vue') },
-  { path: '/admin/buku', name: 'buku', component: page('admin/buku.vue') },
-  { path: '/admin/peminjaman', name: 'peminjaman', component: page('admin/peminjaman.vue') },
-  { path: '/admin/pengembalian', name: 'pengembalian', component: page('admin/pengembalian.vue') },
+  { path: '*', component: page('errors/404.vue') },
 ]
