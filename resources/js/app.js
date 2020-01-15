@@ -5,7 +5,6 @@ import i18n from '~/plugins/i18n'
 import App from '~/components/App'
 import VueAxios from 'vue-axios'
 import Axios from 'axios'
-import FormUpload from '~/components/FormUpload'
 
 import '~/plugins'
 import '~/components'
@@ -19,7 +18,6 @@ new Vue({
   router,
   VueAxios,
   Axios,
-  FormUpload,
   ...App
 })
 

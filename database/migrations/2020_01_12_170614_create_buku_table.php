@@ -19,7 +19,7 @@ class CreateBukuTable extends Migration
             $table->string('author');
             $table->string('publisher');
             $table->string('year');
-            $table->string('image');
+            $table->text('description');
             $table->timestamps();
         });
     }

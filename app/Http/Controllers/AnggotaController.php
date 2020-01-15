@@ -1,34 +1,33 @@
 <?php
 
 namespace App\Http\Controllers;
+use App\User;
 
 use Illuminate\Http\Request;
-use Illuminate\Support\Str;
-use App\Buku;
 
-class BukuController extends Controller
+class AnggotaController extends Controller
 {
     public function all() {
-    	return Buku::all();
+    	return User::all()->where('role', 1);
     }
 
     public function show($id) {
-    	return Buku::find($id);
+    	return User::find($id);
     }
 
     public function store(Request $request) {
-    	return Buku::create($request->all());
+    	return User::create($request->all());
     }
 
     public function update($id, Request $request) {
-    	$buku = Buku::find($id);
-    	$buku->update($request->all());
-    	return $buku;
+    	$user = User::find($id);
+    	$user->update($request->all());
+    	return $user;
     }
 
     public function delete($id) {
-    	$buku = Buku::find($id);
-    	$buku->delete();
+    	$user = User::find($id);
+    	$user->delete();
     	return 204;
     }
 }

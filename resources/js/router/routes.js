@@ -6,10 +6,16 @@ export default [
   { path: '/', name: 'index', component: page('index.vue') },
 
   { path: '/login', name: 'login', component: page('auth/login.vue') },
+  
+  { path: '/buku', name: 'buku', component: page('buku/index.vue') },
 
   { path: '/admin/buku', name: 'bukuRead', component: page('admin/buku/read.vue') },
   { path: '/admin/buku/create', name: 'bukuCreate', component: page('admin/buku/create.vue') },
-  { path: '/admin/buku/detail/:id', name: 'bukuUpdate', component: page('admin/update.vue') },
+  { path: '/admin/buku/update/:id', name: 'bukuUpdate', component: page('admin/buku/update.vue') },
+
+  { path: '/admin/anggota', name: 'anggotaRead', component: page('admin/anggota/read.vue') },
+  { path: '/admin/anggota/create', name: 'anggotaCreate', component: page('admin/anggota/create.vue') },
+  { path: '/admin/anggota/update/:id', name: 'anggotaUpdate', component: page('admin/anggota/update.vue') },
 
   { path: '/register', name: 'register', component: page('auth/register.vue') },
   { path: '/password/reset', name: 'password.request', component: page('auth/password/email.vue') },

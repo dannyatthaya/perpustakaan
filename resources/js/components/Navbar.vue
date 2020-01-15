@@ -10,20 +10,19 @@
       <div id="navbarToggler" class="collapse navbar-collapse">
         <ul class="navbar-nav">
           <locale-dropdown />
-          <!-- <li class="nav-item">
-            <a class="nav-link" href="#">Link</a>
-          </li> -->
-        </ul>
-        <ul class="navbar-nav ml-auto">
-          <template v-if="user">
-            <!-- Authenticated -->
+          <template v-if="user && user.role == 2">
             <li class="nav-item">
               <router-link :to="{ name: 'dashboard' }" class="nav-link">
                 Dashboard
               </router-link>
             </li>
+          </template>
+        </ul>
+        <ul class="navbar-nav ml-auto">
+          <template v-if="user && user.role == 2">
+            <!-- Authenticated -->
             <li class="nav-item">
-              <router-link :to="{ name: 'admin.anggota' }" class="nav-link">
+              <router-link :to="{ name: 'anggotaRead' }" class="nav-link">
                 Anggota
               </router-link>
             </li>
@@ -53,10 +52,39 @@
               </a>
             </li>
           </template>
-          <!-- Guest -->
-          <template v-else>
+          <!-- User -->
+          <template v-if="user && user.role == 1">
+            <!-- Authenticated -->
             <li class="nav-item">
-              <router-link :to="{ name: 'bukuRead' }" class="nav-link" active-class="active">
+              <router-link :to="{ name: 'index' }" class="nav-link">
+                Home
+              </router-link>
+            </li>
+            <li class="nav-item">
+              <router-link :to="{ name: 'bukuRead' }" class="nav-link">
+                Buku
+              </router-link>
+            </li>
+            <li class="nav-item">
+              <router-link :to="{ name: 'settings.profile' }" class="nav-link">
+                {{ $t('settings') }}
+              </router-link>
+            </li>
+            <li class="nav-item">
+              <a href="#" class="nav-link" @click.prevent="logout">
+                {{ $t('logout') }}
+              </a>
+            </li>
+          </template>
+          <!-- Guest -->
+          <template v-if="!user">
+            <li class="nav-item">
+              <router-link :to="{ name: 'index' }" class="nav-link">
+                Home
+              </router-link>
+            </li>
+            <li class="nav-item">
+              <router-link :to="{ name: 'buku' }" class="nav-link" active-class="active">
                 Buku
               </router-link>
             </li>

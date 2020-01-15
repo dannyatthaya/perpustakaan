@@ -23,11 +23,17 @@ Route::group(['middleware' => 'auth:api'], function () {
     Route::patch('settings/profile', 'Settings\ProfileController@update');
     Route::patch('settings/password', 'Settings\PasswordController@update');
 
-    Route::get('/buku', 'BukuController@all');
-    Route::get('/buku/{id}', 'BukuController@show');
-    Route::post('/buku', 'BukuController@store');
-    Route::put('/buku/{id}', 'BukuController@update');
-    Route::delete('/buku/{id}', 'BukuController@delete');
+    Route::get('/buku', 'BukuController@all')->middleware('isAdminOrSelf');
+    Route::get('/buku/{id}', 'BukuController@show')->middleware('isAdminOrSelf');
+    Route::post('/buku', 'BukuController@store')->middleware('isAdmin');
+    Route::put('/buku/{id}', 'BukuController@update')->middleware('isAdmin');
+    Route::delete('/buku/{id}', 'BukuController@delete')->middleware('isAdmin');
+
+    Route::get('/anggota', 'AnggotaController@all')->middleware('isAdminOrSelf');
+    Route::get('/anggota/{id}', 'AnggotaController@show')->middleware('isAdminOrSelf');
+    Route::post('/anggota', 'AnggotaController@store')->middleware('isAdmin');
+    Route::put('/anggota/{id}', 'AnggotaController@update')->middleware('isAdmin');
+    Route::delete('/anggota/{id}', 'AnggotaController@delete')->middleware('isAdmin');
 });
 
 Route::group(['middleware' => 'guest:api'], function () {

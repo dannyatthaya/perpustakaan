@@ -41,10 +41,8 @@
 import { mapGetters } from 'vuex'
 
 export default {
+  middleware: 'admin',
   layout: 'default',
-
-  middleware: 'auth',
-
   metaInfo() {
     return { title: this.$t('home') }
   },
