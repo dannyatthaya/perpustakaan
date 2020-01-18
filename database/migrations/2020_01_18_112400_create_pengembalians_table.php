@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreatePeminjamenTable extends Migration
+class CreatePengembaliansTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,14 @@ class CreatePeminjamenTable extends Migration
      */
     public function up()
     {
-        Schema::create('peminjaman', function (Blueprint $table) {
+        Schema::create('pengembalians', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->date('tanggalpinjam');
             $table->integer('user_id');
             $table->integer('buku_id');
-            $table->date('tanggalkembali')->nullable();
+            $table->date('tanggalkembali');
+            $table->date('tanggaldikembalikan');
+            $table->integer('terlambat');
+            $table->double('denda');
             $table->timestamps();
         });
     }
@@ -30,6 +32,6 @@ class CreatePeminjamenTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('peminjaman');
+        Schema::dropIfExists('pengembalians');
     }
 }

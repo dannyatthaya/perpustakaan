@@ -55,12 +55,12 @@
               </router-link>
             </li>
             <li class="nav-item">
-              <router-link :to="{ name: 'admin.peminjaman' }" class="nav-link">
+              <router-link :to="{ name: 'pinjamRead' }" class="nav-link">
                 Peminjaman
               </router-link>
             </li>
             <li class="nav-item">
-              <router-link :to="{ name: 'admin.pengembalian' }" class="nav-link">
+              <router-link :to="{ name: 'kembaliRead' }" class="nav-link">
                 Pengembalian
               </router-link>
             </li>

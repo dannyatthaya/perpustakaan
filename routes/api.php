@@ -34,6 +34,18 @@ Route::group(['middleware' => 'auth:api'], function () {
     Route::post('/anggota', 'AnggotaController@store')->middleware('isAdmin');
     Route::put('/anggota/{id}', 'AnggotaController@update')->middleware('isAdmin');
     Route::delete('/anggota/{id}', 'AnggotaController@delete')->middleware('isAdmin');
+
+    Route::get('/pinjam', 'PeminjamanController@all')->middleware('isAdminOrSelf');
+    Route::get('/pinjam/{id}', 'PeminjamanController@show')->middleware('isAdminOrSelf');
+    Route::post('/pinjam', 'PeminjamanController@store')->middleware('isAdmin');
+    Route::put('/pinjam/{id}', 'PeminjamanController@update')->middleware('isAdmin');
+    Route::delete('/pinjam/{id}', 'PeminjamanController@delete')->middleware('isAdmin');
+
+    Route::get('/kembali', 'PengembalianController@all')->middleware('isAdminOrSelf');
+    Route::get('/kembali/{id}', 'PengembalianController@show')->middleware('isAdminOrSelf');
+    Route::post('/kembali', 'PengembalianController@store')->middleware('isAdmin');
+    Route::put('/kembali/{id}', 'PengembalianController@update')->middleware('isAdmin');
+    Route::delete('/kembali/{id}', 'PengembalianController@delete')->middleware('isAdmin');
 });
 
 Route::group(['middleware' => 'guest:api'], function () {

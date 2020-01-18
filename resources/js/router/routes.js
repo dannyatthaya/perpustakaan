@@ -14,8 +14,15 @@ export default [
   { path: '/admin/buku/update/:id', name: 'bukuUpdate', component: page('admin/buku/update.vue') },
 
   { path: '/admin/anggota', name: 'anggotaRead', component: page('admin/anggota/read.vue') },
-  { path: '/admin/anggota/create', name: 'anggotaCreate', component: page('admin/anggota/create.vue') },
   { path: '/admin/anggota/update/:id', name: 'anggotaUpdate', component: page('admin/anggota/update.vue') },
+
+  { path: '/admin/pinjam', name: 'pinjamRead', component: page('admin/peminjaman/read.vue') },
+  { path: '/admin/pinjam/create', name: 'pinjamCreate', component: page('admin/peminjaman/create.vue') },
+  { path: '/admin/pinjam/update/:id', name: 'pinjamUpdate', component: page('admin/peminjaman/update.vue') },
+
+  { path: '/admin/kembali', name: 'kembaliRead', component: page('admin/pengembalian/read.vue') },
+  { path: '/admin/kembali/create', name: 'kembaliCreate', component: page('admin/pengembalian/create.vue') },
+  { path: '/admin/kembali/update/:id', name: 'kembaliUpdate', component: page('admin/pengembalian/update.vue') },
 
   { path: '/register', name: 'register', component: page('auth/register.vue') },
   { path: '/password/reset', name: 'password.request', component: page('auth/password/email.vue') },

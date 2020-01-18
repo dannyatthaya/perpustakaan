@@ -1,7 +1,7 @@
 <template>
   <div class="row">
     <div class="col-lg-8 m-auto">
-      <card :title="$t('login')">
+      <card :title="$t('login')" class="mt-4">
         <form @submit.prevent="login" @keydown="form.onKeydown($event)">
           <!-- Email -->
           <div class="form-group row">
@@ -51,13 +51,9 @@
 
 <script>
 import Form from 'vform'
-import LoginWithGithub from '~/components/LoginWithGithub'
 
 export default {
   middleware: 'guest',
-  components: {
-    LoginWithGithub
-  },
 
   metaInfo () {
     return { title: this.$t('login') }

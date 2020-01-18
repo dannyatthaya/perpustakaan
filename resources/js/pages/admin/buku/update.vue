@@ -30,6 +30,9 @@
           </div>
           <div class="form-group">
             <button class="btn btn-primary">Update Buku</button>
+            <router-link :to="{ path: $store.state.route.from.fullPath }" class="btn btn-secondary"> 
+              Kembali
+            </router-link>
           </div>
         </form>
       </div>
