@@ -19,6 +19,29 @@
           </template>
         </ul>
         <ul class="navbar-nav ml-auto">
+          <!-- Guest -->
+          <template v-if="!user">
+            <li class="nav-item">
+              <router-link :to="{ name: 'index' }" class="nav-link">
+                Home
+              </router-link>
+            </li>
+            <li class="nav-item">
+              <router-link :to="{ name: 'buku' }" class="nav-link" active-class="active">
+                Buku
+              </router-link>
+            </li>
+            <li class="nav-item">
+              <router-link :to="{ name: 'login' }" class="nav-link" active-class="active">
+                {{ $t('login') }}
+              </router-link>
+            </li>
+            <li class="nav-item">
+              <router-link :to="{ name: 'register' }" class="nav-link" active-class="active">
+                {{ $t('register') }}
+              </router-link>
+            </li>
+          </template>
           <template v-if="user && user.role == 2">
             <!-- Authenticated -->
             <li class="nav-item">
@@ -74,29 +97,6 @@
               <a href="#" class="nav-link" @click.prevent="logout">
                 {{ $t('logout') }}
               </a>
-            </li>
-          </template>
-          <!-- Guest -->
-          <template v-if="!user">
-            <li class="nav-item">
-              <router-link :to="{ name: 'index' }" class="nav-link">
-                Home
-              </router-link>
-            </li>
-            <li class="nav-item">
-              <router-link :to="{ name: 'buku' }" class="nav-link" active-class="active">
-                Buku
-              </router-link>
-            </li>
-            <li class="nav-item">
-              <router-link :to="{ name: 'login' }" class="nav-link" active-class="active">
-                {{ $t('login') }}
-              </router-link>
-            </li>
-            <li class="nav-item">
-              <router-link :to="{ name: 'register' }" class="nav-link" active-class="active">
-                {{ $t('register') }}
-              </router-link>
             </li>
           </template>
         </ul>
