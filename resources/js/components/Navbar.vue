@@ -65,11 +65,6 @@
               </router-link>
             </li>
             <li class="nav-item">
-              <router-link :to="{ name: 'settings.profile' }" class="nav-link">
-                {{ $t('settings') }}
-              </router-link>
-            </li>
-            <li class="nav-item">
               <a href="#" class="nav-link" @click.prevent="logout">
                 {{ $t('logout') }}
               </a>
@@ -84,13 +79,8 @@
               </router-link>
             </li>
             <li class="nav-item">
-              <router-link :to="{ name: 'bukuRead' }" class="nav-link">
+              <router-link :to="{ name: 'buku' }" class="nav-link">
                 Buku
-              </router-link>
-            </li>
-            <li class="nav-item">
-              <router-link :to="{ name: 'settings.profile' }" class="nav-link">
-                {{ $t('settings') }}
               </router-link>
             </li>
             <li class="nav-item">

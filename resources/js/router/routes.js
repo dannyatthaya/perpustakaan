@@ -8,6 +8,8 @@ export default [
   { path: '/login', name: 'login', component: page('auth/login.vue') },
   
   { path: '/buku', name: 'buku', component: page('buku/index.vue') },
+  { path: '/buku/detail/:id', name: 'bukuDetail', component: page('buku/detail.vue') },
+  { path: '/buku/detail/pinjam/:id', name: 'bukuPinjam', component: page('buku/pinjam.vue') },
 
   { path: '/admin/buku', name: 'bukuRead', component: page('admin/buku/read.vue') },
   { path: '/admin/buku/create', name: 'bukuCreate', component: page('admin/buku/create.vue') },

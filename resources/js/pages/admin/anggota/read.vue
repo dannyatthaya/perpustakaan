@@ -54,7 +54,6 @@ export default {
     loadData() {
       // fetch data dari api menggunakan axios
       this.$axios.get("http://localhost:8000/api/anggota").then(response => {
-        // mengirim data hasil fetch ke varibale array bukus
         this.anggotas = response.data;
       });
     },
