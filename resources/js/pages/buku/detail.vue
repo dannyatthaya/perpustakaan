@@ -5,7 +5,7 @@
         <br />
         <br />
         <div class="col-4">
-          <img class="card-img-top" src="../images/example.jpg" />
+          <img class="card-img-top" v-bind:src="getCover()" />
           <div class="mt-3">
             <b>DETAIL</b>
             <div class="row">
@@ -29,7 +29,7 @@ Penerbit
         <div class="col-5">
           <div class="m-2">
             <h4>{{bukus.title}}</h4>
-            <h5 class="text-muted">{{bukus.author}}</h5>
+            <h6 class="text-muted">&nbsp;{{bukus.author}}</h6>
             <p>{{bukus.description}}</p>
           </div>
         </div>
@@ -61,11 +61,12 @@ export default {
         publisher: "",
         year: "",
         description: "",
-
-        tanggalpinjam: '',
-        user_id: 2,
-        buku_id: this.$route.params.id,
-      }
+        cover: "",
+      },
+      pinjam: {
+        user_id: '',
+        book_id: this.$route.params.id,
+      },
     };
   },
   created() {
@@ -74,6 +75,9 @@ export default {
   methods: {
     loadData() {
       // fetch data dari api menggunakan axios
+      this.$axios.get('http://localhost:8000/api/getuserid').then( (response) => {
+        this.pinjam.user_id = response.data;
+      });
       this.$axios
         .get("http://localhost:8000/api/buku/" + this.$route.params.id)
         .then(response => {
@@ -83,7 +87,16 @@ export default {
           this.bukus.publisher = response.data.publisher;
           this.bukus.year = response.data.year;
           this.bukus.description = response.data.description;
+          this.bukus.cover = response.data.cover;
         });
+    },
+    getCover() {
+      let cover = "";
+      if (this.bukus.cover) {
+        cover = this.bukus.cover;
+        let address = '/storage/' + cover;
+        return address;
+      }
     },
     addData() {
       var current = new Date();
@@ -92,13 +105,14 @@ export default {
       kembali.setDate(kembali.getDate() + kembaliAdd);
       this.$axios
         .post("http://localhost:8000/api/pinjam", {
-          tanggalpinjam: moment(current).format('YYYY-MM-DD'),
-          user_id: this.bukus.user_id,
-          buku_id: this.bukus.buku_id,
-          tanggalkembali: moment(kembali).format('YYYY-MM-DD'),
+          date_borrow: moment(current).format('YYYY-MM-DD'),
+          user_id: this.pinjam.user_id,
+          book_id: this.pinjam.book_id,
+          date_return: moment(kembali).format('YYYY-MM-DD'),
         })
         .then(response => {
-          this.$router.push("/buku/detail/pinjam?" + response.data.id);
+          console.log(response);
+          this.$router.push("/buku/detail/pinjam/" + response.data.id);
         })
         .catch(error => {
           console.log(error)

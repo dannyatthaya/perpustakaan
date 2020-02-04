@@ -7,7 +7,7 @@
         <h4>INSERT BUKU</h4>
         <br>
         <!-- prevent form submit untuk reload halaman, kemudian memanggil function addData() -->
-        <form @submit.prevent="addData()">
+        <form @submit.prevent="addData()" enctype="multipart/form-data">
           <div class="form-group">
             <label>Judul Buku</label>
             <input type="textfield" class="form-control" v-model="form.title" required>
@@ -30,8 +30,8 @@
           </div>
           <div class="form-group">
             <div class="custom-file">
-              <label for="cover" class="custom-file-label">{{ label }}</label>
-              <input type="file" class="custom-file-input" accept="image/jpg" ref="cover" name="cover" id="cover" @change="onFileChange()">
+              <input type="file" id="file" ref="file" class="custom-file-input" accept="image/jpg" @change="onImageChanged" >
+              <label class="custom-file-label" for="file" id="inputImage">{{ inputImage }}</label>
             </div>
           </div>
           <div class="form-group">
@@ -51,33 +51,22 @@ export default {
   middleware: 'admin',
   data() {
     return {
-      cover: null,
-      label: 'Choose File ...',
-      image: '',
+      file: null,
+      inputImage: 'Choose File',
       form: {
         title: '',
         author: '',
         publisher: '',
         year: '',
-        description: '',
-        cover: '',
+        image: '',
+        description: ''
       }
     }
   },
   methods: {
-    onFileChange() {
-      this.cover = this.$refs.cover.files[0];
-      this.label = this.cover.name ? this.cover.name : 'Choose File ...';
-      this.createdImage(this.cover);
-      
-    },
-    createdImage(file) {
-      let reader = new FileReader();
-      let vm = this;
-      reader.onload = (e) => {
-        vm.image = e.target.result;
-      };
-      reader.readAsDataURL(file);
+    onImageChanged() {
+      this.file = this.$refs.file.files[0];
+      this.inputImage = this.file.name ? this.file.name : 'Choose File';
     },
     addData() {
       // post data ke api menggunakan axios
@@ -87,9 +76,13 @@ export default {
           author: this.form.author,
           publisher: this.form.publisher,
           year: this.form.year,
+          image: this.inputImage,
           description: this.form.description,
-          cover: Math.random().toString(36).substring(2, 15) + '.jpg',
-          image: this.image,
+          headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'multipart/form-data'
+                },
+          files: this.file,
         })
         .then(response => {
           // push router ke read data

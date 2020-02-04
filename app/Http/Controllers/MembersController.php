@@ -5,7 +5,7 @@ use App\User;
 
 use Illuminate\Http\Request;
 
-class AnggotaController extends Controller
+class MembersController extends Controller
 {
     public function all() {
     	return User::all()->where('role', 1);

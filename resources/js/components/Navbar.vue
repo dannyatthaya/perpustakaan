@@ -84,6 +84,11 @@
               </router-link>
             </li>
             <li class="nav-item">
+              <router-link :to="{ name: 'pinjam' }" class="nav-link">
+                Pinjam
+              </router-link>
+            </li>
+            <li class="nav-item">
               <a href="#" class="nav-link" @click.prevent="logout">
                 {{ $t('logout') }}
               </a>

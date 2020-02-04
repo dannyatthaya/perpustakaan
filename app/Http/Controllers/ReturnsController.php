@@ -3,30 +3,30 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Pengembalian;
+use App\Returns;
 
-class PengembalianController extends Controller
+class ReturnsController extends Controller
 {
     public function all() {
-    	return Pengembalian::all();
+    	return Returns::all();
     }
 
     public function show($id) {
-    	return Pengembalian::find($id);
+    	return Returns::find($id);
     }
 
     public function store(Request $request) {
-    	return Pengembalian::create($request->all());
+    	return Returns::create($request->all());
     }
 
     public function update($id, Request $request) {
-    	$kembali = Pengembalian::find($id);
+    	$kembali = Returns::find($id);
     	$kembali->update($request->all());
     	return $kembali;
     }
 
     public function delete($id) {
-    	$kembali = Pengembalian::find($id);
+    	$kembali = Returns::find($id);
     	$kembali->delete();
     	return 204;
     }

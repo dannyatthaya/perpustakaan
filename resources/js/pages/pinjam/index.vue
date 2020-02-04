@@ -1,7 +1,7 @@
 <template>
-  <div class="row">
+  <div class="row col-12 col-lg-12 mt-4 mb-4">
     <div class="col-lg-8 m-auto">
-      <card :title="'#' + pinjams.id" class="mt-4">
+      <card :title="'#' + pinjam.id" class="mt-4" v-for="pinjam in pinjams" :key="pinjam.id">
         <div class="mt-3">
           <b>DETAIL</b>
           <div class="row">
@@ -14,9 +14,9 @@ Tanggal Kembali
             </div>
             <div class="col-6 mt-2">
               <pre>
-<b>{{pinjams.date_borrow}}</b>
-<b>{{pinjams.book_id}}</b>
-<b>{{pinjams.date_return}}</b>
+<b>{{pinjam.date_borrow}}</b>
+<b>{{pinjam.book_id}}</b>
+<b>{{pinjam.date_return}}</b>
 </pre>
             </div>
           </div>
@@ -30,12 +30,7 @@ Tanggal Kembali
 export default {
   data() {
     return {
-      pinjams: {
-        date_borrow: "",
-        user_id: "",
-        book_id: "",
-        date_return: ""
-      }
+      pinjams: []
     };
   },
   created() {
@@ -45,7 +40,7 @@ export default {
     loadData() {
       // fetch data dari api menggunakan axios
       this.$axios
-        .get("http://localhost:8000/api/pinjam/" + this.$route.params.id)
+        .get("http://localhost:8000/api/peminjaman/")
         .then(response => {
           this.pinjams = response.data;
         });
@@ -53,5 +48,3 @@ export default {
   }
 };
 </script>
-<style scoped>
-</style>

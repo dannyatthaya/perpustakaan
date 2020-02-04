@@ -11,27 +11,21 @@
     <section>
       <div class="container static__single-position">
         <div class="row">
-          <div class="col-md-6 col-xl-3 mb-4 mb-xl-0">
-            <div class="card static__single">
-              <h3>35</h3>
+          <div class="col-md-6 col-xl-4 mb-4 mb-xl-0">
+            <div class="card static__single bg-light">
+              <h3>{{ book }}</h3>
               <h4>Banyak Buku</h4>
             </div>
           </div>
-          <div class="col-md-6 col-xl-3 mb-4 mb-xl-0">
-            <div class="card static__single">
-              <h3>23</h3>
-              <h4>Jenis Kategori</h4>
-            </div>
-          </div>
-          <div class="col-md-6 col-xl-3 mb-4 mb-xl-0">
-            <div class="card static__single">
-              <h3>720</h3>
+          <div class="col-md-6 col-xl-4 mb-4 mb-xl-0">
+            <div class="card static__single bg-light">
+              <h3>{{ members }}</h3>
               <h4>Total Anggota</h4>
             </div>
           </div>
-          <div class="col-md-6 col-xl-3 mb-4 mb-xl-0">
-            <div class="card static__single">
-              <h3>680</h3>
+          <div class="col-md-12 col-xl-4 mb-4 mb-xl-0">
+            <div class="card static__single bg-light">
+              <h3>{{ borrows }}</h3>
               <h4>Total Peminjaman</h4>
             </div>
           </div>
@@ -45,20 +39,40 @@ import { mapGetters } from 'vuex'
 
 export default {
   layout: 'default',
+  data() {
+    return {
+      book: '',
+      borrows: '',
+      members: ''
+    };
+  },
+
+  mounted() {
+    this.count();
+  },
 
   metaInfo() {
     return { title: this.$t('home') }
-  },
-
-  data: () => ({
-    title: window.config.appName
-  }),
+  },  
 
   computed: mapGetters({
     authenticated: 'auth/check'
   }),
 
   methods: {
+    count() {
+      this.$axios.get("http://localhost:8000/api/buku").then(response => {
+        this.book = response.data.length;
+      });
+
+      this.$axios.get("http://localhost:8000/api/pinjam").then(response => {
+        this.borrows = response.data.length;
+      });
+
+      this.$axios.get("http://localhost:8000/api/anggota").then(response => {
+        this.members = Object.keys(response.data).length;
+      });
+    },
     async logout() {
       // Log out the user.
       await this.$store.dispatch('auth/logout')

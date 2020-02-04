@@ -43,6 +43,15 @@
               <has-error :form="form" field="password_confirmation" />
             </div>
           </div>
+
+          <div class="form-group row">
+            <div class="col-md-7 offset-md-3 d-flex">
+              <!-- Submit Button -->
+              <v-button :loading="form.busy">
+                {{ $t('register') }}
+              </v-button>
+            </div>
+          </div>
         </form>
       </card>
     </div>
@@ -75,21 +84,15 @@ export default {
       const { data } = await this.form.post('/api/register')
 
       // Must verify email fist.
-      if (data.status) {
-        this.mustVerifyEmail = true
-      } else {
+      // if (data.status) {
+        // this.mustVerifyEmail = true
+      // } else {
         // Log in the user.
-        const { data: { token } } = await this.form.post('/api/login')
-
-        // Save the token.
-        this.$store.dispatch('auth/saveToken', { token })
-
-        // Update the user.
-        await this.$store.dispatch('auth/updateUser', { user: data })
-
-        // Redirect home.
-        this.$router.push({ name: 'index' })
-      }
+        // const { data: { token } } = await this.form.post('/api/login')
+      // }
+      
+      // Redirect home.
+      this.$router.push({ name: 'index' })
     }
   }
 }

@@ -17,7 +17,7 @@
         <div class="card-columns">
           <div class="card" v-for="buku in bukus" :key="buku.id">
             <router-link :to="'buku/detail/' + buku.id">
-              <img class="card-img-top" src="../images/example.jpg" />
+              <img class="card-img-top" v-bind:src="'http://localhost:8000/storage/' + buku.cover" style="background-size: cover;"/>
             </router-link>
             <div class="card-body">
               <router-link :to="'buku/detail/' + buku.id">

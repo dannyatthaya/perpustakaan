@@ -23,29 +23,24 @@ Route::group(['middleware' => 'auth:api'], function () {
     Route::patch('settings/profile', 'Settings\ProfileController@update');
     Route::patch('settings/password', 'Settings\PasswordController@update');
 
-    Route::get('/buku', 'BukuController@all')->middleware('isAdminOrSelf');
-    Route::get('/buku/{id}', 'BukuController@show')->middleware('isAdminOrSelf');
-    Route::post('/buku', 'BukuController@store')->middleware('isAdmin');
-    Route::put('/buku/{id}', 'BukuController@update')->middleware('isAdmin');
-    Route::delete('/buku/{id}', 'BukuController@delete')->middleware('isAdmin');
+    Route::get('/buku/{id}', 'BooksController@show')->middleware('isAdminOrSelf');
+    Route::post('/buku', 'BooksController@store')->middleware('isAdmin');
+    Route::put('/buku/{id}', 'BooksController@update')->middleware('isAdmin');
+    Route::delete('/buku/{id}', 'BooksController@delete')->middleware('isAdmin');
 
-    Route::get('/anggota', 'AnggotaController@all')->middleware('isAdminOrSelf');
-    Route::get('/anggota/{id}', 'AnggotaController@show')->middleware('isAdminOrSelf');
-    Route::post('/anggota', 'AnggotaController@store')->middleware('isAdmin');
-    Route::put('/anggota/{id}', 'AnggotaController@update')->middleware('isAdmin');
-    Route::delete('/anggota/{id}', 'AnggotaController@delete')->middleware('isAdmin');
+    Route::get('/anggota/{id}', 'MembersController@show')->middleware('isAdminOrSelf');
+    Route::post('/anggota', 'MembersController@store')->middleware('isAdmin');
+    Route::put('/anggota/{id}', 'MembersController@update')->middleware('isAdmin');
+    Route::delete('/anggota/{id}', 'MembersController@delete')->middleware('isAdmin');
 
-    Route::get('/pinjam', 'PeminjamanController@all')->middleware('isAdminOrSelf');
-    Route::get('/pinjam/{id}', 'PeminjamanController@show');
-    Route::post('/pinjam', 'PeminjamanController@store');
-    Route::put('/pinjam/{id}', 'PeminjamanController@update')->middleware('isAdmin');
-    Route::delete('/pinjam/{id}', 'PeminjamanController@delete')->middleware('isAdmin');
+    Route::put('/pinjam/{id}', 'BorrowsController@update')->middleware('isAdmin');
+    Route::delete('/pinjam/{id}', 'BorrowsController@delete')->middleware('isAdmin');
 
-    Route::get('/kembali', 'PengembalianController@all')->middleware('isAdminOrSelf');
-    Route::get('/kembali/{id}', 'PengembalianController@show')->middleware('isAdminOrSelf');
-    Route::post('/kembali', 'PengembalianController@store')->middleware('isAdmin');
-    Route::put('/kembali/{id}', 'PengembalianController@update')->middleware('isAdmin');
-    Route::delete('/kembali/{id}', 'PengembalianController@delete')->middleware('isAdmin');
+    Route::get('/kembali', 'ReturnsController@all')->middleware('isAdminOrSelf');
+    Route::get('/kembali/{id}', 'ReturnsController@show')->middleware('isAdminOrSelf');
+    Route::post('/kembali', 'ReturnsController@store')->middleware('isAdmin');
+    Route::put('/kembali/{id}', 'ReturnsController@update')->middleware('isAdmin');
+    Route::delete('/kembali/{id}', 'ReturnsController@delete')->middleware('isAdmin');
 });
 
 Route::group(['middleware' => 'guest:api'], function () {
@@ -61,8 +56,19 @@ Route::group(['middleware' => 'guest:api'], function () {
     Route::post('oauth/{driver}', 'Auth\OAuthController@redirectToProvider');
     Route::get('oauth/{driver}/callback', 'Auth\OAuthController@handleProviderCallback')->name('oauth.callback');
 
-    Route::get('/buku', 'BukuController@all');
-    Route::get('/buku/{id}', 'BukuController@show');
-    Route::post('/pinjam', 'PeminjamanController@store');
-    Route::get('/pinjam/{id}', 'PeminjamanController@show');
+    Route::post('/pinjam', 'BorrowsController@store');
+    Route::get('/pinjam/{id}', 'BorrowsController@show');
+});
+
+Route::get('/buku', 'BooksController@all');
+
+Route::get('/pinjam', 'BorrowsController@all');
+Route::get('/pinjam/{id}', 'BorrowsController@show');
+Route::get('/peminjaman', 'BorrowsController@showPerUser');
+Route::post('/pinjam', 'BorrowsController@store');
+
+Route::get('/buku/{id}', 'BooksController@show');
+Route::get('/anggota', 'MembersController@all');
+Route::get('/getuserid', function (Request $request) {
+    return Auth::user()->id;
 });

@@ -11,6 +11,8 @@ export default [
   { path: '/buku/detail/:id', name: 'bukuDetail', component: page('buku/detail.vue') },
   { path: '/buku/detail/pinjam/:id', name: 'bukuPinjam', component: page('buku/pinjam.vue') },
 
+  { path: '/peminjaman', name: 'pinjam', component: page('pinjam/index.vue') },
+
   { path: '/admin/buku', name: 'bukuRead', component: page('admin/buku/read.vue') },
   { path: '/admin/buku/create', name: 'bukuCreate', component: page('admin/buku/create.vue') },
   { path: '/admin/buku/update/:id', name: 'bukuUpdate', component: page('admin/buku/update.vue') },
