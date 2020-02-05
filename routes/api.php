@@ -33,12 +33,9 @@ Route::group(['middleware' => 'auth:api'], function () {
     Route::put('/anggota/{id}', 'MembersController@update')->middleware('isAdmin');
     Route::delete('/anggota/{id}', 'MembersController@delete')->middleware('isAdmin');
 
-    Route::put('/pinjam/{id}', 'BorrowsController@update')->middleware('isAdmin');
     Route::delete('/pinjam/{id}', 'BorrowsController@delete')->middleware('isAdmin');
 
-    Route::get('/kembali', 'ReturnsController@all')->middleware('isAdminOrSelf');
     Route::get('/kembali/{id}', 'ReturnsController@show')->middleware('isAdminOrSelf');
-    Route::post('/kembali', 'ReturnsController@store')->middleware('isAdmin');
     Route::put('/kembali/{id}', 'ReturnsController@update')->middleware('isAdmin');
     Route::delete('/kembali/{id}', 'ReturnsController@delete')->middleware('isAdmin');
 });
@@ -55,19 +52,21 @@ Route::group(['middleware' => 'guest:api'], function () {
 
     Route::post('oauth/{driver}', 'Auth\OAuthController@redirectToProvider');
     Route::get('oauth/{driver}/callback', 'Auth\OAuthController@handleProviderCallback')->name('oauth.callback');
-
-    Route::post('/pinjam', 'BorrowsController@store');
-    Route::get('/pinjam/{id}', 'BorrowsController@show');
 });
 
 Route::get('/buku', 'BooksController@all');
+Route::get('/buku/{id}', 'BooksController@show');
 
 Route::get('/pinjam', 'BorrowsController@all');
 Route::get('/pinjam/{id}', 'BorrowsController@show');
 Route::get('/peminjaman', 'BorrowsController@showPerUser');
 Route::post('/pinjam', 'BorrowsController@store');
+Route::put('/pinjam/{id}', 'BorrowsController@update');
 
-Route::get('/buku/{id}', 'BooksController@show');
+Route::post('/kembali', 'ReturnsController@store');
+Route::get('/pengembalian', 'ReturnsController@showPerUser');
+Route::get('/kembali', 'ReturnsController@all');
+
 Route::get('/anggota', 'MembersController@all');
 Route::get('/getuserid', function (Request $request) {
     return Auth::user()->id;

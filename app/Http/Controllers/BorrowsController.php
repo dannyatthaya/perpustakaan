@@ -9,16 +9,16 @@ use Auth;
 class BorrowsController extends Controller
 {
     public function all() {
-    	return Borrows::all();
+    	return Borrows::with('books')->with('user')->get();
     }
 
     public function show($id) {
-    	return Borrows::find($id);
+    	return Borrows::whereId($id)->with('books')->get();
     }
 
     public function showPerUser() {
         $id = Auth::user()->id;
-        return Borrows::whereUserId($id)->get();
+        return Borrows::whereUserId($id)->with('books')->with('user')->get();
     }
 
     public function store(Request $request) {

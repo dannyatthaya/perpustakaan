@@ -14,8 +14,8 @@
         <table class="table table-hover">
           <thead class="thead-dark">
             <tr>
-              <th scope="col">Used ID</th>
-              <th scope="col">Buku ID</th>
+              <th scope="col">Nama User</th>
+              <th scope="col">Judul Buku</th>
               <th scope="col">Tanggal Kembali</th>
               <th scope="col">Tanggal Dikembalikan</th>
               <th scope="col">Terlambat</th>
@@ -26,12 +26,12 @@
           <tbody>
             <!-- menampilkan data ke table -->
             <tr v-for="kembali in kembalis" :key="kembali.id">
-              <td style="width:10%"><b> {{ kembali.user_id }} </b></td>
-              <td style="width:10%"> {{ kembali.buku_id }} </td>
-              <td style="width:20%"> {{ kembali.tanggalkembali }} </td>
-              <td style="width:20%"> {{ kembali.tanggaldikembalikan }} </td>
-              <td style="width:10%"> {{ kembali.terlambat }} </td>
-              <td style="width:10%"> Rp{{ formatPrice(kembali.denda) }} </td>
+              <td style="width:10%"><b> {{ kembali.user.name }} </b></td>
+              <td style="width:10%"> {{ kembali.books.title }} </td>
+              <td style="width:20%"> {{ kembali.date_return }} </td>
+              <td style="width:20%"> {{ kembali.date_returning }} </td>
+              <td style="width:10%"> {{ kembali.due }} </td>
+              <td style="width:10%"> Rp{{ formatPrice(kembali.fine) }} </td>
               <td style="width:20%">
                 <button class="btn btn-default" v-on:click="deleteData(kembali.id)"><fa :icon="['fas', 'trash']" /></button>
               </td>

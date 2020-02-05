@@ -21,8 +21,8 @@
           <thead class="thead-dark">
             <tr>
               <th scope="col">Tanggal Pinjam</th>
-              <th scope="col">User ID</th>
-              <th scope="col">Buku ID</th>
+              <th scope="col">Nama User</th>
+              <th scope="col">Judul Buku</th>
               <th scope="col">Tanggal Kembali</th>
               <th scope="col">Action</th>
             </tr>
@@ -30,14 +30,14 @@
           <tbody>
             <!-- menampilkan data ke table -->
             <tr v-for="pinjam in pinjams" :key="pinjam.id">
-              <td style="width:20%"><b> {{ pinjam.tanggalpinjam }} </b></td>
-              <td style="width:20%"> {{ pinjam.user_id }} </td>
-              <td style="width:20%"> {{ pinjam.buku_id }} </td>
-              <td style="width:20%"> {{ pinjam.tanggalkembali }} </td>
+              <td style="width:20%"><b> {{ pinjam.date_borrow }} </b></td>
+              <td style="width:20%"> {{ pinjam.user.name }} </td>
+              <td style="width:20%"> {{ pinjam.books.title }} </td>
+              <td style="width:20%"> {{ pinjam.date_return }} </td>
               <td style="width:20%">
                 <router-link class="btn btn-default" :to="'pinjam/update/' + pinjam.id"><fa :icon="['fas', 'edit']" /></router-link>
                 <button class="btn btn-default" v-on:click="deleteData(pinjam.id)"><fa :icon="['fas', 'trash']" /></button>
-                <button class="btn btn-default" v-on:click="kembalikan(pinjam.id, pinjam.user_id, pinjam.buku_id, pinjam.tanggalkembali)"><fa :icon="['fas', 'check-double']" /></button>
+                <button class="btn btn-default" v-on:click="kembalikan(pinjam.id, pinjam.user_id, pinjam.books_id, pinjam.date_return)"><fa :icon="['fas', 'check-double']" /></button>
               </td>
             </tr>
           </tbody>
@@ -56,9 +56,6 @@ export default {
     return {
       // variable array yang akan menampung hasil fetch dari api
       pinjams: [],
-      tanggaldikembalikan: '',
-      terlambat: '',
-      denda: '',
     };
   },
   created() {
@@ -74,9 +71,9 @@ export default {
     kembalikan(id, user_id, buku_id, tanggalkembali) {
       var date1 = moment(tanggalkembali, "YYYY-MM-DD");
       var returned = moment(new Date()).format('YYYY-MM-DD');
-      var due = '';
-      if(Math.abs(date1.diff(returned, "days")) > 0) {
-        due = Math.abs(date1.diff(returned, "days"))
+      var due = date1.diff(returned, "days") * -1;
+      if(due > 0) {
+        due = due;
       } else {
         due = 0;
       }
@@ -85,24 +82,28 @@ export default {
       this.$axios
         .post("http://localhost:8000/api/kembali", {
           user_id: user_id,
-          buku_id: buku_id,
-          tanggalkembali: tanggalkembali,
-          tanggaldikembalikan: returned,
-          terlambat: due,
-          denda: fine,
+          books_id: buku_id,
+          date_return: tanggalkembali,
+          date_returning: returned,
+          due: due,
+          fine: fine,
         })
         .then(response => {
           // delete data pinjam
           this.$axios.delete("http://localhost:8000/api/pinjam/" + id).then(response => {
             this.loadData();
           });
-          // push router ke read data
           console.log(response);
-          this.$router.push("/admin/pinjam");
         })
         .catch(error => {
           console.log(error)
         });
+    },
+    deleteData(id) {
+      // delete data
+      this.$axios.delete("http://localhost:8000/api/pinjam/" + id).then(response => {
+        this.loadData();
+      });
     }
   }
 };

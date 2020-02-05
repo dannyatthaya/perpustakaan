@@ -48,5 +48,5 @@ export default [
   { path: '/admin/peminjaman', name: 'admin.peminjaman', component: page('admin/peminjaman.vue') },
   { path: '/admin/pengembalian', name: 'admin.pengembalian', component: page('admin/pengembalian.vue') },
 
-  { path: '*', component: page('errors/404.vue') },
+  { path: '*', name: '404', component: page('errors/404.vue') },
 ]

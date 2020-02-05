@@ -27,7 +27,15 @@ class BooksController extends Controller
     }
 
     public function update($id, Request $request) {
-    	$buku = Books::find($id);
+        $buku = Books::find($id);
+        
+        if($request->image) {
+            $image = $request->image;
+            $image = str_replace('data:image/jpeg;base64,', '', $image);
+            $imageName = $request->input('cover');
+            Storage::disk('public')->put($imageName, base64_decode($image));
+        }
+
     	$buku->update($request->all());
     	return $buku;
     }

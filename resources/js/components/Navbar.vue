@@ -85,7 +85,7 @@
             </li>
             <li class="nav-item">
               <router-link :to="{ name: 'pinjam' }" class="nav-link">
-                Pinjam
+                History
               </router-link>
             </li>
             <li class="nav-item">

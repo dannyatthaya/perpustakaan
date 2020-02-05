@@ -10,7 +10,7 @@
         <form @submit.prevent="addData()">
           <div class="form-group">
             <label>Tanggal Pinjam</label>
-            <input type="date" class="form-control" v-model="form.tanggalpinjam" required>
+            <input type="date" class="form-control" v-model="form.date_borrow" required>
           </div>
           <div class="form-group">
             <label>User ID</label>
@@ -20,13 +20,13 @@
           </div>
           <div class="form-group">
             <label>Buku ID</label>
-            <select class="form-control" v-model="form.buku_id" required>
+            <select class="form-control" v-model="form.books_id" required>
               <option v-for="buku in bukus" :key="buku.id" v-bind:value="buku.id">{{ buku.title }}</option>
             </select>
           </div>
           <div class="form-group">
             <label>Tanggal Kembali</label>
-            <input type="date" class="form-control" v-model="form.tanggalkembali" required>
+            <input type="date" class="form-control" v-model="form.date_return" required>
           </div>
           <div class="form-group">
             <button class="btn btn-primary">Insert Pinjam</button>
@@ -50,10 +50,10 @@ export default {
       bukus: [],
       anggotas: [],
       form: {
-        tanggalpinjam: '',
+        date_borrow: '',
         user_id: '',
-        buku_id: '',
-        tanggalkembali: '',
+        books_id: '',
+        date_return: '',
       }
     }
   },
@@ -78,10 +78,10 @@ export default {
       // post data ke api menggunakan axios
       this.$axios
         .post("http://localhost:8000/api/pinjam", {
-          tanggalpinjam: moment(String(this.form.tanggalpinjam)).format('YYYY-MM-DD'),
+          date_borrow: moment(String(this.form.date_borrow)).format('YYYY-MM-DD'),
           user_id: this.form.user_id,
-          buku_id: this.form.buku_id,
-          tanggalkembali: moment(String(this.form.tanggalkembali)).format('YYYY-MM-DD'),
+          books_id: this.form.books_id,
+          date_return: moment(String(this.form.date_return)).format('YYYY-MM-DD'),
         })
         .then(response => {
           // push router ke read data

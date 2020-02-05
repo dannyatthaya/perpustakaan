@@ -10,7 +10,7 @@
         <form @submit.prevent="updateData()">
           <div class="form-group">
             <label>Tanggal Pinjam</label>
-            <input type="date" class="form-control" v-model="form.tanggalpinjam" required>
+            <input type="date" class="form-control" v-model="form.date_borrow" required>
           </div>
           <div class="form-group">
             <label>User ID</label>
@@ -20,13 +20,13 @@
           </div>
           <div class="form-group">
             <label>Buku ID</label>
-            <select class="form-control" v-model="form.buku_id" required>
-              <option v-for="buku in bukus" :key="buku.id" v-bind:value="buku.id">{{ buku.title }}</option>
+            <select class="form-control" v-model="form.books_id" required>
+              <option v-for="buku in bukus" :key="buku.id" v-bind:value="buku.id" :selected="form.books_id === 28">{{ buku.title }}</option>
             </select>
           </div>
           <div class="form-group">
             <label>Tanggal Kembali</label>
-            <input type="date" class="form-control" v-model="form.tanggalkembali" required>
+            <input type="date" class="form-control" v-model="form.date_return" required>
           </div>
           <div class="form-group">
             <button class="btn btn-primary">Update Pinjam</button>
@@ -47,10 +47,10 @@ export default {
       bukus: [],
       anggotas: [],
       form: {
-        tanggalpinjam: '',
+        date_borrow: '',
         user_id: '',
-        buku_id: '',
-        tanggalkembali: '',
+        books_id: '',
+        date_return: '',
       }
     }
   },
@@ -64,12 +64,11 @@ export default {
                 .get("http://localhost:8000/api/pinjam/" + this.$route.params.id)
                 .then(response => {
                     // post value yang dari response ke form
-                    this.form.tanggalpinjam = response.data.tanggalpinjam;
-                    this.form.user_id = response.data.user_id;
-                    this.form.buku_id = response.data.buku_id;
-                    this.form.tanggalkembali = response.data.tanggalkembali;
+                    this.form.date_borrow = response.data[0].date_borrow;
+                    this.form.user_id = response.data[0].user_id;
+                    this.form.books_id = response.data[0].books_id;
+                    this.form.date_return = response.data[0].date_return;
                     console.log(response.data);
-                    console.log(this.form);
                 });
             // fetch data dari api menggunakan axios
             this.$axios.get("http://localhost:8000/api/buku").then(response => {
@@ -87,15 +86,14 @@ export default {
             // put data ke api menggunakan axios
             this.$axios
                 .put("http://localhost:8000/api/pinjam/" + this.$route.params.id, {
-                    title: this.form.title,
-                    author: this.form.author,
-                    publisher: this.form.publisher,
-                    year: this.form.year,
-                    description: this.form.description,
+                    date_borrow: this.form.date_borrow,
+                    user_id: this.form.user_id,
+                    books_id: this.form.books_id,
+                    date_return: this.form.date_return,
                 })
                 .then(response => {
                     // push router ke read data
-                    this.$router.push("/admin/buku/");
+                    this.$router.push("/admin/pinjam");
                 });
     }
   }

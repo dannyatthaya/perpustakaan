@@ -52,6 +52,8 @@ Penerbit
 <!-- script js -->
 <script>
 import moment from 'moment'
+import store from '~/store'
+
 export default {
   data() {
     return {
@@ -64,8 +66,8 @@ export default {
         cover: "",
       },
       pinjam: {
-        user_id: '',
-        book_id: this.$route.params.id,
+        user_id: 0,
+        books_id: this.$route.params.id,
       },
     };
   },
@@ -75,9 +77,12 @@ export default {
   methods: {
     loadData() {
       // fetch data dari api menggunakan axios
-      this.$axios.get('http://localhost:8000/api/getuserid').then( (response) => {
-        this.pinjam.user_id = response.data;
-      });
+      if(store.getters['auth/user']) {
+        this.$axios.get('http://localhost:8000/api/getuserid').then( (response) => {
+          this.pinjam.user_id = response.data;
+        });
+      }
+      
       this.$axios
         .get("http://localhost:8000/api/buku/" + this.$route.params.id)
         .then(response => {
@@ -103,20 +108,24 @@ export default {
       var kembali = new Date();
       var kembaliAdd = 7;
       kembali.setDate(kembali.getDate() + kembaliAdd);
-      this.$axios
-        .post("http://localhost:8000/api/pinjam", {
-          date_borrow: moment(current).format('YYYY-MM-DD'),
-          user_id: this.pinjam.user_id,
-          book_id: this.pinjam.book_id,
-          date_return: moment(kembali).format('YYYY-MM-DD'),
-        })
-        .then(response => {
-          console.log(response);
-          this.$router.push("/buku/detail/pinjam/" + response.data.id);
-        })
-        .catch(error => {
-          console.log(error)
-        });
+      if(store.getters['auth/user']) {
+        this.$axios
+          .post("http://localhost:8000/api/pinjam", {
+            date_borrow: moment(current).format('YYYY-MM-DD'),
+            user_id: this.pinjam.user_id,
+            books_id: this.pinjam.books_id,
+            date_return: moment(kembali).format('YYYY-MM-DD'),
+          })
+          .then(response => {
+            console.log(response);
+            this.$router.push("/buku/detail/pinjam/" + response.data.id);
+          })
+          .catch(error => {
+            console.log(error)
+          });
+      } else {
+        return this.$router.push("/login");
+      }
     }
   }
 };
